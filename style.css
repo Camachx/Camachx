@@ -1,0 +1,364 @@
+:root {
+    --primary-color: #333; /* Color principal oscuro */
+    --secondary-color: #f4f4f4; /* Color de fondo claro */
+    --accent-color: #DAA520; /* Dorado para acentos y estrellas */
+    --text-color: #333;
+    --card-bg: #ffffff;
+    --decor-table: url('https://www.transparentpng.com/thumb/table/gray-table-clipart-transparent-background-uAWUC1.png'); /* Ejemplo, busca un SVG o PNG */
+    --decor-tie: url('https://svgsilh.com/svg/152208.svg'); /* Ejemplo */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: var(--secondary-color);
+    color: var(--text-color);
+    /* Ejemplo de fondo temático sutil para toda la página */
+    /* background-image: linear-gradient(rgba(255,255,255,0.95), rgba(255,255,255,0.95)), var(--decor-table); */
+    /* background-size: 200px; */
+    /* background-repeat: repeat; */
+}
+
+header {
+    background: var(--primary-color);
+    color: #fff;
+    padding: 1.5rem 1rem;
+    text-align: center;
+    border-bottom: 5px solid var(--accent-color);
+}
+
+header .logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+
+header .logo-img {
+    max-height: 60px;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.2rem;
+}
+
+header p {
+    margin-top: 0.5rem;
+    font-size: 1.1rem;
+}
+
+main {
+    padding: 1rem;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+section {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+section h2 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.8rem;
+    position: relative; /* Para adornos */
+}
+
+/* Adorno para títulos de sección (ej: corbata) */
+/* section h2::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-image: var(--decor-tie);
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 10px;
+    vertical-align: middle;
+} */
+
+
+#equipo h2::after, #equipo h2::before { /* Ejemplo de decoración con líneas */
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background-color: var(--accent-color);
+    margin: 8px auto;
+}
+#equipo h2::before {
+    margin-bottom: 4px;
+}
+#equipo h2::after {
+    margin-top: 4px;
+}
+
+
+.meseros-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* 1 columna por defecto */
+    gap: 2rem;
+}
+
+.mesero-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column; /* Para móviles */
+    gap: 1rem;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.mesero-card img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+.mesero-card h3 {
+    margin: 0.5rem 0;
+    color: var(--primary-color);
+}
+
+.mesero-rating .stars {
+    font-size: 1.5rem;
+    color: #ccc; /* Estrellas vacías */
+    cursor: pointer;
+}
+
+.mesero-rating .stars .fa-star { /* Para Font Awesome */
+    margin: 0 2px;
+}
+
+.mesero-rating .stars .fas { /* Estrellas llenas (Font Awesome solid) */
+    color: var(--accent-color);
+}
+.current-rating {
+    font-weight: bold;
+    color: var(--accent-color);
+}
+
+/* Layout alternado para pantallas más grandes */
+@media (min-width: 768px) {
+    .meseros-grid {
+        /* Si quieres 2 columnas: grid-template-columns: repeat(2, 1fr); */
+        /* Para el layout alternado solicitado, mantenemos 1 columna pero ajustamos flex-direction */
+    }
+    .mesero-card {
+        flex-direction: row; /* Por defecto imagen a la izquierda, info a la derecha */
+        text-align: left;
+        align-items: flex-start; /* Alinea items al inicio verticalmente */
+    }
+    .mesero-card .mesero-info {
+        flex: 2; /* Ocupa más espacio */
+    }
+    .mesero-card .mesero-rating {
+        flex: 1;
+        text-align: center; /* Centra el contenido de rating */
+        align-self: center; /* Centra el bloque de rating verticalmente */
+    }
+
+    .mesero-card:nth-child(odd) .mesero-info { /* OJO: Esto es si los elementos info y rating están separados */
+        order: 1; /* Mantiene info a la izquierda */
+    }
+     .mesero-card:nth-child(odd) img {
+        margin-right: 1.5rem;
+        margin-left: 0;
+    }
+
+
+    /* Si quieres que la imagen cambie de lado, necesitas anidar la imagen DENTRO del div .mesero-info o tenerla como hermana.
+       Asumiendo que la imagen está dentro de .mesero-info o es el primer hijo directo de .mesero-card:
+    */
+    .mesero-card:nth-child(even) { /* Para el segundo, cuarto, etc. */
+        flex-direction: row-reverse; /* Invierte el orden de los hijos directos */
+        text-align: right; /* Ajusta la alineación del texto */
+    }
+    .mesero-card:nth-child(even) .mesero-info {
+         text-align: right; /* Para que la descripción se alinee a la derecha */
+    }
+    .mesero-card:nth-child(even) img {
+        margin-left: 1.5rem;
+        margin-right: 0;
+    }
+     .mesero-card:nth-child(even) .mesero-rating {
+        /* Si quieres que la sección de rating también se mueva, necesitarás ajustar el order */
+        /* order: -1; / / O ajustar el HTML para que sea un hijo del contenedor que se invierte */
+         text-align: center; /* Mantenemos centrado el rating */
+    }
+}
+
+
+#foto-grupal {
+    text-align: center;
+}
+
+#foto-grupal img {
+    max-width: 80%;
+    height: auto;
+    border-radius: 8px;
+    border: 5px solid var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+#empleado-mes {
+    background-color: var(--primary-color);
+    color: #fff;
+    /* Adorno de carpa */
+    /* background-image: linear-gradient(rgba(51,51,51,0.9), rgba(51,51,51,0.9)), url('URL_DE_TU_IMAGEN_DE_CARPA_SUTIL.svg'); */
+    /* background-size: cover; */
+}
+#empleado-mes h2 {
+    color: var(--accent-color);
+}
+.empleado-mes-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: 2rem;
+    border-radius: 8px;
+    margin: 0 auto;
+    max-width: 400px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.empleado-mes-card img {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid var(--accent-color);
+    margin-bottom: 1rem;
+}
+
+#faq .faq-item {
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+#faq .faq-question {
+    background-color: var(--primary-color);
+    color: white;
+    cursor: pointer;
+    padding: 15px 20px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease;
+    border-radius: 5px 5px 0 0;
+}
+
+#faq .faq-question:hover {
+    background-color: #555; /* Un poco más claro al pasar el mouse */
+}
+
+#faq .faq-question::after { /* Flecha para indicar desplegable */
+    content: '\f078'; /* Icono de flecha hacia abajo de Font Awesome */
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    float: right;
+    transition: transform 0.3s ease;
+}
+
+#faq .faq-question.active::after {
+    transform: rotate(180deg); /* Gira la flecha cuando está activo */
+}
+
+#faq .faq-answer {
+    padding: 0 20px;
+    background-color: white;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    border-top: 1px solid #eee; /* Línea sutil cuando está abierto */
+}
+#faq .faq-answer p {
+    padding: 15px 0;
+    margin:0;
+}
+
+
+#contacto {
+    text-align: center;
+    background-color: var(--accent-color);
+    color: var(--primary-color);
+}
+#contacto h2 {
+    color: var(--primary-color);
+}
+#contacto p {
+    font-size: 1.1rem;
+}
+
+
+footer {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: var(--primary-color);
+    color: #ccc;
+    font-size: 0.9rem;
+}
+.footer-decor {
+    margin-top: 0.5rem;
+}
+.footer-decor i {
+    margin: 0 10px;
+    font-size: 1.2rem;
+    color: var(--accent-color);
+}
+
+/* Adornos y detalles temáticos */
+/* Ejemplo de cómo podrías usar una imagen de fondo para una sección */
+/* #equipo { */
+    /* background-image: linear-gradient(rgba(255,255,255,0.9), rgba(255,255,255,0.9)), url('camimo/a/tu/imagen_de_mesas_sillas.jpg'); */
+    /* background-size: cover; */
+    /* background-position: center; */
+/* } */
+
+
+/* Responsive para pantallas más pequeñas */
+@media (max-width: 767px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+    .mesero-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .mesero-card img {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+     .mesero-card:nth-child(even), .mesero-card {
+        flex-direction: column; /* Asegura que en móvil siempre sea columna */
+        text-align: center;
+    }
+    .mesero-card:nth-child(even) .mesero-info, .mesero-card .mesero-info  {
+         text-align: center;
+    }
+    .mesero-card:nth-child(even) img, .mesero-card img {
+        margin-left: auto; /* Centra la imagen */
+        margin-right: auto;
+    }
+}
