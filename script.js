@@ -1,10 +1,3 @@
-// Esta función se queda AFUERA para que puedas llamarla desde la consola (F12) UNA SOLA VEZ.
-function inicializarBaseDeDatos() {
-    // Obtenemos acceso a la base de datos de Firebase
-    const db = firebase.firestore();
-    const meserosCollection = db.collection('meseros');
-
-    console.log("Inicializando la base de datos con tus datos...");
 
     // ** TUS DATOS ESTÁN AQUÍ **
     // He tomado los datos que me pasaste y los he adaptado para Firebase.
